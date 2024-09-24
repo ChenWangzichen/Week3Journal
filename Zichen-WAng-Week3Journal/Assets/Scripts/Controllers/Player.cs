@@ -14,15 +14,21 @@ public class Player : MonoBehaviour
     //private Vector3 hVelocity = Vector3.up;
 
     //set velocity
-    private Vector3 velocity;
+    private float xSpeed;
+    private float ySpeed;
+    //private Vector3 velocity;
     //set maxspeed and acceleration time
     public float maxSpeed;
     public float accelerationTime;
     float acceleration;
+    //set deceleration time
+    float deceleration;
+    public float decelerationTime;
 
     private void Start()
     {
         acceleration = maxSpeed / accelerationTime;
+        deceleration = maxSpeed / decelerationTime;
     }
     void Update()
     {
@@ -52,48 +58,22 @@ public class Player : MonoBehaviour
             direction = Vector3.down;
         }
         //velocity and accleration calculate
+        Vector3 velocity = new Vector3(xSpeed, ySpeed);
         velocity += acceleration * direction.normalized * Time.deltaTime;
         //the line to make player move 
         transform.position += velocity * Time.deltaTime;
+        //deceleration
+        if(Input.GetKeyUp(KeyCode.LeftArrow) || Input.GetKeyUp(KeyCode.RightArrow) && xSpeed!=0)
+        {
+            velocity -= deceleration * direction.normalized * Time.deltaTime;
+        }
+        else if(Input.GetKeyUp(KeyCode.UpArrow) || Input.GetKeyUp(KeyCode.DownArrow) && ySpeed!=0)
+        {
+            velocity -= deceleration * direction.normalized * Time.deltaTime;
+        }
 
-        ////if (velocity < maxSpeed)
-        ////{
-        ////    velocity += acceleration * Time.deltaTime;
-        ////}
-        ////else
-        ////{
-        ////    velocity = maxSpeed;
-        ////}
 
-        //////press leftArrow, x-1
-        ////if (Input.GetKey(KeyCode.LeftArrow))
-        ////{
-        ////    transform.position += velocity * Vector3.left*Time.deltaTime;
-        ////}
-        //////press right, x+1
-        ////if (Input.GetKey(KeyCode.RightArrow))
-        ////{
-        ////    transform.position += velocity * Vector3.right*Time.deltaTime;
-        ////}
-        //////press up, y+1
-        ////if (Input.GetKey(KeyCode.UpArrow))
-        ////{
-        ////    transform.position += velocity * Vector3.up*Time.deltaTime;
-        ////}
-        //////press down, y-1
-        ////if (Input.GetKey(KeyCode.DownArrow))
-        ////{
-        ////    transform.position += velocity * Vector3.down*Time.deltaTime;
-        ////}
-        //////reset the velocity when releaced the key. so it won't speed up forever
-        ////if (Input.GetKeyUp(KeyCode.RightArrow) || Input.GetKeyUp(KeyCode.LeftArrow) || Input.GetKeyUp(KeyCode.UpArrow) || Input.GetKeyUp(KeyCode.DownArrow))
-        ////{
-        ////    velocity = 0;
-        ////}
 
-        //if (Input.GetKey(KeyCode.LeftArrow))
-        //{
-        //    transform.position += velocity * Vector3.left * Time.deltaTime;
-        //}
+   
     }
 }

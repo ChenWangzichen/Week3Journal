@@ -71,6 +71,7 @@ public class Player : MonoBehaviour
             acceleration = velocity.magnitude / decelerationTime;
             isDecelerat=true;
         }
+
         //if it's decelerate and velocity small enough, set to 0
         if (isDecelerat && velocity.magnitude < 0.1)
         {
@@ -79,7 +80,11 @@ public class Player : MonoBehaviour
         }
         //velocity and accleration calculate
         velocity += acceleration * direction.normalized * Time.deltaTime;
-
+        //set the velocity remain the max speed
+        if (velocity.magnitude >= maxSpeed)
+        {
+            velocity = maxSpeed * velocity.normalized;
+        }
         //the line to make player move 
         transform.position += velocity * Time.deltaTime;
 

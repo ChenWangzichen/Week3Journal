@@ -9,26 +9,22 @@ public class Player : MonoBehaviour
     public GameObject bombPrefab;
     public Transform bombsTransform;
 
-    //set 2 velocity for horizontal and vertical
-    //private Vector3 vVelocity = Vector3.right;
-    //private Vector3 hVelocity = Vector3.up;
-
     //set velocity
-    private float xSpeed;
-    private float ySpeed;
-    //private Vector3 velocity;
+    private Vector3 velocity;
     //set maxspeed and acceleration time
     public float maxSpeed;
     public float accelerationTime;
-    float acceleration;
+    public float acceleration;
     //set deceleration time
-    float deceleration;
     public float decelerationTime;
+    //check if is decelerat
+    bool isDecelerat = false;
+    //set direction towrds noreway
+    Vector3 direction = Vector3.zero;
 
     private void Start()
     {
         acceleration = maxSpeed / accelerationTime;
-        deceleration = maxSpeed / decelerationTime;
     }
     void Update()
     {
@@ -36,41 +32,58 @@ public class Player : MonoBehaviour
         PlayerMovement();
 
     }
+
     public void PlayerMovement()
     {
-        //set direction towrds noreway
-        Vector3 direction = Vector3.zero;
+
         //press arrow key to give direction a directiong
         if (Input.GetKey(KeyCode.LeftArrow))
         {
+            //when get key hold, set acceleration, decelerat set as false.
             direction = Vector3.left;
+            acceleration = maxSpeed / accelerationTime;
+            isDecelerat = false;
         }
         if (Input.GetKey(KeyCode.RightArrow))
         {
             direction = Vector3.right;
+            acceleration = maxSpeed / accelerationTime;
+            isDecelerat = false;
         }
         if (Input.GetKey(KeyCode.UpArrow))
         {
             direction = Vector3.up;
+            acceleration = maxSpeed / accelerationTime;
+            isDecelerat = false;
         }
         if (Input.GetKey(KeyCode.DownArrow))
         {
             direction = Vector3.down;
+            acceleration = maxSpeed / accelerationTime;
+            isDecelerat = false;
+        }
+
+        //when there no arrow key is hold and is not decelerat, decelerat.
+        if (!Input.GetKey(KeyCode.LeftArrow) && !Input.GetKey(KeyCode.RightArrow) 
+            && !Input.GetKey(KeyCode.UpArrow) && !Input.GetKey(KeyCode.DownArrow) && !isDecelerat)
+        {
+            direction = -velocity;
+            acceleration = velocity.magnitude / decelerationTime;
+            isDecelerat=true;
+        }
+        //if it's decelerate and velocity small enough, set to 0
+        if (isDecelerat && velocity.magnitude < 0.1)
+        {
+            velocity = Vector3.zero;
+            acceleration = 0;
         }
         //velocity and accleration calculate
-        Vector3 velocity = new Vector3(xSpeed, ySpeed);
         velocity += acceleration * direction.normalized * Time.deltaTime;
+
         //the line to make player move 
         transform.position += velocity * Time.deltaTime;
-        //deceleration
-        if(Input.GetKeyUp(KeyCode.LeftArrow) || Input.GetKeyUp(KeyCode.RightArrow) && xSpeed!=0)
-        {
-            velocity -= deceleration * direction.normalized * Time.deltaTime;
-        }
-        else if(Input.GetKeyUp(KeyCode.UpArrow) || Input.GetKeyUp(KeyCode.DownArrow) && ySpeed!=0)
-        {
-            velocity -= deceleration * direction.normalized * Time.deltaTime;
-        }
+
+
 
 
 

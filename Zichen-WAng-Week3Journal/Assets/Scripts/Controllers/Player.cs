@@ -9,6 +9,7 @@ public class Player : MonoBehaviour
     public GameObject bombPrefab;
     public Transform bombsTransform;
     public GameObject powerUpPrefab;
+    public GameObject shieldPrefab;
 
     //set velocity
     private Vector3 velocity;
@@ -30,9 +31,21 @@ public class Player : MonoBehaviour
     public float powerRadius = 3;
     public int numberOfPowerups = 8;
 
+    ////flash
+    //public float flashTime = 0.1f;
+    //public int flashCount = 3;
+    //public Color hitColor = Color.red;
+    //private Color originalC;
+    //private Renderer playerRenderer;
+    //public GameObject sprite;
+
+
     private void Start()
     {
         acceleration = maxSpeed / accelerationTime;
+        ////get rederer and color
+        //playerRenderer = sprite.GetComponent<Renderer>();
+        //originalC = playerRenderer.material.color;
     }
     void Update()
     {
@@ -42,7 +55,7 @@ public class Player : MonoBehaviour
         EnemyRadar(radius, circlePoints);
         //call power up
         SpawnPowerups(powerRadius, numberOfPowerups);
-
+        GetShield();
     }
 
     public void PlayerMovement()
@@ -147,4 +160,36 @@ public class Player : MonoBehaviour
             power.transform.position = point + transform.position;
         }
     }
+    public void GetShield()
+    {
+        if (Input.GetKey(KeyCode.Space))
+        {
+            //active the shield when press key
+            shieldPrefab.SetActive(true);
+        }
+        else
+        {
+            //otherwise don't show
+            shieldPrefab.SetActive(false);
+        }
+    }
+
+    //public void OnHit()
+    //{
+    //    StartCoroutine(Flash());
+    //}
+
+    //IEnumerator Flash()
+    //{
+    //    for (int i = 0; i < flashCount; i++)
+    //    {
+    //        //change to hit
+    //        playerRenderer.material.color = hitColor;
+    //        yield return new WaitForSeconds(flashTime);
+
+    //        //change to origin
+    //        playerRenderer.material.color = originalC;
+    //        yield return new WaitForSeconds(flashTime);
+    //    }
+    //}
 }

@@ -93,9 +93,9 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4194190890010494449}
-  - component: {fileID: 2911842098934190716}
+  - component: {fileID: -5763805237702589237}
   m_Layer: 0
-  m_Name: Asteroid
+  m_Name: Asteroid 1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -110,14 +110,14 @@ Transform:
   m_GameObject: {fileID: 7969683946929540427}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 176.7982, y: -216.10721, z: 0}
-  m_LocalScale: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 0}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 950219209851783337}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &2911842098934190716
+--- !u!114 &-5763805237702589237
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -126,9 +126,6 @@ MonoBehaviour:
   m_GameObject: {fileID: 7969683946929540427}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d0de4bc6d848ee04980dfc47f7dfffc6, type: 3}
+  m_Script: {fileID: 11500000, guid: b24cb1291f0b7ad4494b8b7b88b1873b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  moveSpeed: 0.05
-  arrivalDistance: 0.2
-  maxFloatDistance: 2
